@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PostService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/posts';
+  private apiUrl = 'http://localhost/posts';
 
   createPost(content: string, file: File | null) {
     const formData = new FormData();

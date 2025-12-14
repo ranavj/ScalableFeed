@@ -11,14 +11,14 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([authInterceptor])), // 👈 Yeh update karein    
+    provideHttpClient(withInterceptors([authInterceptor])), // 👈 Yeh update karein
     // 👇 Apollo Client ka connection logic
     provideApollo(() => {
       const httpLink = inject(HttpLink);
 
       return {
         link: httpLink.create({
-          uri: 'http://localhost:3000/graphql', // Backend URL
+          uri: 'http://localhost/graphql', // Backend URL
         }),
         cache: new InMemoryCache(), // Caching Strategy (System Design Concept)
       };
