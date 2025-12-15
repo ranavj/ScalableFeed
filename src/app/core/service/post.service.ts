@@ -8,12 +8,20 @@ export class PostService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost/posts';
 
-  createPost(content: string, file: File | null) {
-    const formData = new FormData();
-    formData.append('content', content);
+  // 👇 Update Arguments: Ab yeh object accept karega
+  createPost(postData: { title: string, content: string }, file: File | null) {
     
+    const formData = new FormData();
+    
+    // 1. Title Append karein (Backend mein required hai)
+    formData.append('title', postData.title);
+    
+    // 2. Content Append karein
+    formData.append('content', postData.content);
+    
+    // 3. File Append karein (Agar user ne select ki hai)
     if (file) {
-      formData.append('file', file); // Backend mein @UploadedFile('file') match hona chahiye
+      formData.append('file', file); 
     }
 
     return this.http.post(this.apiUrl, formData);
