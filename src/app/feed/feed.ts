@@ -61,19 +61,26 @@ export class Feed implements OnInit {
     this.apollo
       .query({
         query: GET_FEED,
-        variables: { // 👈 Variables bhejein
-          skip: this.skip,
+        variables: {
+          skip: this.skip,  // Pehli baar 0, agli baar 5, phir 10...
           limit: this.limit
         },
         fetchPolicy: 'network-only'
       })
       .subscribe((result: any) => {
         const newPosts = result?.data?.feed || [];
-        // .update() use karke purane posts mein naye posts jode
-        this.posts.update(currentPosts => [...currentPosts, ...newPosts]);
+        
+        if (newPosts.length > 0) {
+          // 1. Posts array update karein
+          this.posts.update(currentPosts => [...currentPosts, ...newPosts]);
+
+          // 👇 2. YEH LINE MISSING THI (Next batch ke liye tayari)
+          this.skip += this.limit; 
+        }
+
         this.loading.set(result.loading);
         this.error = result.error;
-        console.log('Data aagya:', result); // Console mein check karne ke liye
+        console.log('Data loaded. Next skip:', this.skip);
       });
   }
 }

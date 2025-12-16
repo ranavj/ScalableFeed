@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost/auth';
+  private apiUrl = 'http://localhost:3000/auth';
   private tokenKey = 'auth_token'; // LocalStorage key
 
   // Login Request

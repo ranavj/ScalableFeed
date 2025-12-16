@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
 
       return {
         link: httpLink.create({
-          uri: 'http://localhost/graphql', // Backend URL
+          uri: 'http://localhost:3000/graphql', // Backend URL
         }),
         cache: new InMemoryCache(), // Caching Strategy (System Design Concept)
       };

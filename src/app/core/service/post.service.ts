@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PostService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost/posts';
+  private apiUrl = 'http://localhost:3000/posts';
 
   // 👇 Update Arguments: Ab yeh object accept karega
   createPost(postData: { title: string, content: string }, file: File | null) {
@@ -25,5 +25,12 @@ export class PostService {
     }
 
     return this.http.post(this.apiUrl, formData);
+  }
+
+  searchPosts(query: string) {
+    // Backend API: http://localhost/posts/search?q=apple
+    return this.http.get<any[]>(`${this.apiUrl}/search`, {
+      params: { q: query }
+    });
   }
 }
